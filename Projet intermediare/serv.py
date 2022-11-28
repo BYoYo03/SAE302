@@ -7,7 +7,9 @@ os = platform.system()
 name = socket.gethostname()
 ipadd = socket.gethostbyname(name)
 cpu = psutil.cpu_percent(4)
-ram = psutil.virtual_memory()[3] / 1000000000
+ram = psutil.virtual_memory()[0] / 1000000000
+ram1 = psutil.virtual_memory()[3] / 1000000000
+ram2 = psutil.virtual_memory()[4] / 1000000000
 
 server_socket = socket.socket()
 print("Socket crée.")
@@ -36,7 +38,7 @@ while data !="arret":
         print(data)
 
     elif data == "ram":
-        reply = str(f"Ram utilisé : {ram}")
+        reply = str(f"Serveur 1 : Ram Total : {round(ram, 2)} Go\nRam utilisé : {round(ram1,0)} Go\nRam libre: {round(ram2,2)} Go")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -44,7 +46,7 @@ while data !="arret":
         print(data)
 
     elif data == "cpu":
-        reply = str(f"CPU utilisé : {cpu}")
+        reply = str(f"Serveur 1 : CPU utilisé : {cpu} %")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -52,7 +54,7 @@ while data !="arret":
         print(data)
 
     elif data =="ip":
-        reply = str(f"L'adresse ip est : {ipadd}")
+        reply = str(f"Serveur 1 : L'adresse ip est : {ipadd}")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -60,7 +62,7 @@ while data !="arret":
         print(data)
 
     elif data =="name":
-        reply = str(f"Le nom de la machine est: {name}")
+        reply = str(f"Serveur 1 : Le nom de la machine est: {name}")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()

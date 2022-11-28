@@ -5,6 +5,7 @@ import socket
 import psutil
 import platform
 
+name = socket.gethostname()
 
 class MainWindow(QMainWindow):
 
@@ -18,10 +19,9 @@ class MainWindow(QMainWindow):
         widget.setLayout(grid)
 
         lab = QLabel("Socket sur l'adresse {} et le port {}".format(host, port))
-        labrien = QLabel("________________________________")
         self.__lab = QLabel("Saisir une commande")
         self.__text = QLineEdit("")
-        self.lab2 = QLabel("")
+        self.sortie = QTextEdit("")
         entrer = QPushButton("Entrer")
         ramB = QPushButton("RAM")
         cpuB = QPushButton("CPU")
@@ -33,17 +33,16 @@ class MainWindow(QMainWindow):
 
 
         # Ajouter les composants au grid ayout
-        grid.addWidget(lab, 0, 0)
-        grid.addWidget(labrien, 0, 1)
-        grid.addWidget(self.__text, 2, 0)
-        grid.addWidget(self.lab2, 1, 1)
-        grid.addWidget(entrer, 3, 0)
-        grid.addWidget(ramB, 4, 0)
-        grid.addWidget(cpuB, 5, 0)
-        grid.addWidget(ipB, 6, 0)
-        grid.addWidget(osB, 7, 0)
-        grid.addWidget(nameB, 8, 0)
-        grid.addWidget(QUIT, 9, 0)
+        grid.addWidget(lab, 0, 2,)
+        grid.addWidget(self.__text, 1, 0)
+        grid.addWidget(self.sortie, 1, 2,8,10)
+        grid.addWidget(entrer, 2, 0)
+        grid.addWidget(ramB, 3, 0)
+        grid.addWidget(cpuB, 4, 0)
+        grid.addWidget(ipB, 5, 0)
+        grid.addWidget(osB, 6, 0)
+        grid.addWidget(nameB, 7, 0)
+        grid.addWidget(QUIT, 8, 0)
 
         entrer.clicked.connect(self.__actionentrer)
         ramB.clicked.connect(self.__actionram)
@@ -58,47 +57,54 @@ class MainWindow(QMainWindow):
     def __actionentrer(self):
         message = self.__text.text()
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message envoyé")
-        if message == "arret" or "bye":
+        if message == "arret":
             client_socket.close()
             QCoreApplication.exit(0)
-        data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        else:
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"Serveur 1 : {data}")
 
     def __actionram(self):
         message = "ram"
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message ram envoyé")
         data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        self.sortie.append(f"{data}")
 
     def __actioncpu(self):
         message = "cpu"
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message cpu envoyé")
         data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        self.sortie.append(f"{data}")
 
     def __actionip(self):
         message = "ip"
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message ip envoyé")
         data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        self.sortie.append(f"{data}")
 
     def __actionos(self):
         message = "os"
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message os envoyé")
         data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        self.sortie.append(f"{data}")
 
     def __actionname(self):
         message = "name"
         client_socket.send(message.encode())
+        self.sortie.append(f"{name}> {message}")
         print("Message name envoyé")
         data = client_socket.recv(1024).decode()
-        self.lab2.setText(f"{data}")
+        self.sortie.append(f"{data}")
 
     def __actionQUIT(self):
         message = "arret"
@@ -120,6 +126,7 @@ if __name__ == '__main__':
     print("Connecté au serveur.")
     app = QApplication(sys.argv)
     window = MainWindow()
+
     window.show()
     app.exec()
 
