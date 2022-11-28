@@ -24,6 +24,7 @@ print("Conexion établie au client {}".format(address))
 data = conn.recv(1024).decode()
 print("Message received from the client:")
 print(data)
+
 while data !="arret":
 
     if data =="os":
