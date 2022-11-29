@@ -34,14 +34,14 @@ class MainWindow(QMainWindow):
 
         # Ajouter les composants au grid ayout
         grid.addWidget(lab, 0, 2,)
-        grid.addWidget(self.__text, 1, 0)
+        grid.addWidget(self.__text, 9, 0, 1 , 3)
         grid.addWidget(self.sortie, 1, 2,8,10)
-        grid.addWidget(entrer, 2, 0)
-        grid.addWidget(ramB, 3, 0)
-        grid.addWidget(cpuB, 4, 0)
-        grid.addWidget(ipB, 5, 0)
-        grid.addWidget(osB, 6, 0)
-        grid.addWidget(nameB, 7, 0)
+        grid.addWidget(entrer, 9, 5,)
+        grid.addWidget(ramB, 2, 0)
+        grid.addWidget(cpuB, 3, 0)
+        grid.addWidget(ipB, 4, 0)
+        grid.addWidget(osB, 5, 0)
+        grid.addWidget(nameB, 6, 0)
         grid.addWidget(QUIT, 8, 0)
 
         entrer.clicked.connect(self.__actionentrer)
@@ -62,9 +62,32 @@ class MainWindow(QMainWindow):
         if message == "arret":
             client_socket.close()
             QCoreApplication.exit(0)
-        else:
+        elif message == "ram":
+            print("Message ram envoyé")
             data = client_socket.recv(1024).decode()
-            self.sortie.append(f"Serveur 1 : {data}")
+            self.sortie.append(f"{data}")
+        elif message == "os":
+            print("Message os envoyé")
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"{data}")
+
+        elif message == "cpu":
+            print("Message cpu envoyé")
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"{data}")
+
+        elif message == "name":
+            print("Message name envoyé")
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"{data}")
+
+        elif message == "ip":
+            print("Message ip envoyé")
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"{data}")
+        else:
+            pass
+
 
     def __actionram(self):
         message = "ram"

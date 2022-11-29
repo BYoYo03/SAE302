@@ -17,7 +17,7 @@ host = "localhost"
 port = 1111
 server_socket.bind((host, port))
 print("Socket sur l'adresse {} et le port {}".format(host, port))
-server_socket.listen(1)
+server_socket.listen(5)
 
 print("En attente du client")
 conn, address = server_socket.accept()
@@ -30,7 +30,7 @@ print(data)
 while data !="arret":
 
     if data =="os":
-        reply = str(f"{os} {os1}")
+        reply = str(f"Sserveur 1 : {os} {os1}")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -69,33 +69,14 @@ while data !="arret":
         print("Message reçue du client:")
         print(data)
 
-
     else:
-        reply = input("saisir un message: ")
+        reply = ""
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
         print("Message reçue du client:")
         print(data)
-        if data == "ram":
-            reply = str(ram)
-            conn.send(reply.encode())
-            print("Message envoyé")
-            data = conn.recv(1024).decode()
-            print("Message reçue du client:")
-            print(data)
-        elif data == "cpu":
-            reply = str(cpu)
-            conn.send(reply.encode())
-            print("Message envoyé")
-            data = conn.recv(1024).decode()
-            print("Message reçue du client:")
-            print(data)
-        elif reply == "arret":
-            print("Connexion terminé.")
-            conn.close()
-            pass
-            break
+
 print("Connexion terminé.")
 conn.close()
 
