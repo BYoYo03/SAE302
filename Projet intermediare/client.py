@@ -4,8 +4,10 @@ from PyQt5.QtCore import *
 import socket
 import psutil
 import platform
+from PyQt5.QtGui import QPalette
 
 name = socket.gethostname()
+
 
 class MainWindow(QMainWindow):
 
@@ -17,6 +19,14 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
         grid = QGridLayout()
         widget.setLayout(grid)
+        qp = QPalette()
+        qp.setColor(QPalette.ButtonText, Qt.black)
+        qp.setColor(QPalette.Window, Qt.lightGray)
+        qp.setColor(QPalette.Button, Qt.darkGray)
+        qp.setColor(QPalette.Text, Qt.black)
+
+
+        app.setPalette(qp)
 
         lab = QLabel("Socket sur l'adresse {} et le port {}".format(host, port))
         self.__lab = QLabel("Saisir une commande")
@@ -28,7 +38,8 @@ class MainWindow(QMainWindow):
         ipB = QPushButton("IP")
         osB = QPushButton("OS")
         nameB = QPushButton("name")
-        QUIT = QPushButton("Disconnect")
+        QUIT = QPushButton("Kill")
+        disc = QPushButton("Disconnect")
 
 
 
@@ -42,6 +53,7 @@ class MainWindow(QMainWindow):
         grid.addWidget(ipB, 4, 0)
         grid.addWidget(osB, 5, 0)
         grid.addWidget(nameB, 6, 0)
+        grid.addWidget(disc, 7, 0)
         grid.addWidget(QUIT, 8, 0)
 
         entrer.clicked.connect(self.__actionentrer)
@@ -51,6 +63,7 @@ class MainWindow(QMainWindow):
         osB.clicked.connect(self.__actionos)
         nameB.clicked.connect(self.__actionname)
         QUIT.clicked.connect(self.__actionQUIT)
+        disc.clicked.connect(self.__actiondisc)
 
         self.setWindowTitle("SAE302")
 
@@ -62,26 +75,26 @@ class MainWindow(QMainWindow):
         if message == "arret":
             client_socket.close()
             QCoreApplication.exit(0)
-        elif message == "ram":
+        elif message == "ram" or message =="RAM" :
             print("Message ram envoyé")
             data = client_socket.recv(1024).decode()
             self.sortie.append(f"{data}")
-        elif message == "os":
+        elif message == "os" or message =="OS":
             print("Message os envoyé")
             data = client_socket.recv(1024).decode()
             self.sortie.append(f"{data}")
 
-        elif message == "cpu":
+        elif message == "cpu" or message =="CPU":
             print("Message cpu envoyé")
             data = client_socket.recv(1024).decode()
             self.sortie.append(f"{data}")
 
-        elif message == "name":
+        elif message == "name" or message =="Name":
             print("Message name envoyé")
             data = client_socket.recv(1024).decode()
             self.sortie.append(f"{data}")
 
-        elif message == "ip":
+        elif message == "ip" or message =="IP":
             print("Message ip envoyé")
             data = client_socket.recv(1024).decode()
             self.sortie.append(f"{data}")
@@ -136,15 +149,19 @@ class MainWindow(QMainWindow):
         client_socket.close()
         QCoreApplication.exit(0)
 
-
-
-
+    def __actiondisc(self):
+        pass
 
 if __name__ == '__main__':
+    a = int(input("Tapez 1 (Serveur 1) ou 2 (Serveur 2) : "))
+
+    if a == 1:
+        port = 1222
+    else:
+        port = 1223
     client_socket = socket.socket()
     print("Socket créé.")
     host = "localhost"
-    port = 1111
     client_socket.connect((host, port))
     print("Connecté au serveur.")
     app = QApplication(sys.argv)

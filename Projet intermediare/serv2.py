@@ -14,7 +14,7 @@ ram2 = psutil.virtual_memory()[4] / 1000000000
 server_socket = socket.socket()
 print("Socket crée.")
 host = "localhost"
-port = 1222
+port = 1223
 server_socket.bind((host, port))
 print("Socket sur l'adresse {} et le port {}".format(host, port))
 server_socket.listen(5)
@@ -68,6 +68,9 @@ while data !="arret":
         data = conn.recv(1024).decode()
         print("Message reçue du client:")
         print(data)
+
+    elif data =="disc":
+        conn.close()
 
     else:
         reply = ""
