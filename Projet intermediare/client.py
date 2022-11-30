@@ -1,10 +1,11 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-import socket
-import psutil
-import platform
 from PyQt5.QtGui import QPalette
+import socket
+
+
+
 
 name = socket.gethostname()
 
@@ -75,32 +76,9 @@ class MainWindow(QMainWindow):
         if message == "arret":
             client_socket.close()
             QCoreApplication.exit(0)
-        elif message == "ram" or message =="RAM" :
-            print("Message ram envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
-        elif message == "os" or message =="OS":
-            print("Message os envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
-
-        elif message == "cpu" or message =="CPU":
-            print("Message cpu envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
-
-        elif message == "name" or message =="Name":
-            print("Message name envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
-
-        elif message == "ip" or message =="IP":
-            print("Message ip envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
         else:
-            pass
-
+            data = client_socket.recv(10000).decode()
+            self.sortie.append(f"{data}")
 
     def __actionram(self):
         message = "ram"
@@ -148,6 +126,7 @@ class MainWindow(QMainWindow):
         print("Message QUIT envoyé")
         client_socket.close()
         QCoreApplication.exit(0)
+
 
     def __actiondisc(self):
         pass

@@ -1,9 +1,13 @@
 import socket
 import psutil
 import platform
+import os
+from platform import python_version
+
+
 
 os1 = platform.release()
-os = platform.system()
+os3 = platform.system()
 name = socket.gethostname()
 ipadd = socket.gethostbyname(name)
 cpu = psutil.cpu_percent(4)
@@ -24,13 +28,13 @@ conn, address = server_socket.accept()
 print("Conexion établie au client {}".format(address))
 
 data = conn.recv(1024).decode()
-print("Message received from the client:")
+print("Message reçue du client:")
 print(data)
 
 while data !="arret":
 
-    if data =="os"or data =="OS":
-        reply = str(f"Sserveur 1 : {os} {os1}")
+    if data =="os" or data =="OS":
+        reply = str(f"Sserveur 1 : {os3} {os1}")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -69,9 +73,63 @@ while data !="arret":
         print("Message reçue du client:")
         print(data)
 
-    else:
-        reply = ""
+    elif data =="python --version":
+        reply = str(f"La version de python qu'on utilise actullement est la {python_version()}")
         conn.send(reply.encode())
+        print("Message envoyé")
+        data = conn.recv(1024).decode()
+        print("Message reçue du client:")
+        print(data)
+
+    elif data.startswith("DOS:mkdir "):
+        data1 = data.split()[1]
+        os.mkdir(data1)
+        reply = str(f"Le dossier {data1} a été créé")
+        conn.send(reply.encode())
+        print("Message envoyé")
+        data = conn.recv(1024).decode()
+        print("Message reçue du client:")
+        print(data)
+
+    elif data == "Linux:ls":
+        data2 = os.listdir()
+        reply = str(f"Les fichiers dans le dossier sont:\n {data2}")
+        conn.send(reply.encode())
+        print("Message envoyé")
+        data = conn.recv(1024).decode()
+        print("Message reçue du client:")
+        print(data)
+
+    elif data == "Linux:ls":
+        data2 = os.listdir()
+        reply = str(f"Les fichiers dans le dossier sont:\n {data2}")
+        conn.send(reply.encode())
+        print("Message envoyé")
+        data = conn.recv(1024).decode()
+        print("Message reçue du client:")
+        print(data)
+
+
+
+        """
+            elif data.startswith("ping"):
+                ip = data.split()[1]
+                result = os.system("ping -c 1" + ip)
+                if result == 0:
+                    conn.send("{} atteint".format(ip).encode())
+                else:
+                    conn.send("inconnu".encode())
+        """
+
+    else:
+        cmd = data
+        #if cmd == 0:
+        ls = os.popen(cmd).read()
+        conn.send(ls.encode())
+        """else:
+            cmd = (f"Erreur d'éxcution de la command {data}")
+            conn.send(cmd.encode())
+        """
         print("Message envoyé")
         data = conn.recv(1024).decode()
         print("Message reçue du client:")

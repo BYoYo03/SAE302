@@ -1,15 +1,18 @@
 import socket
 import psutil
 import platform
+from platform import python_version
+import os
 
 os1 = platform.release()
-os = platform.system()
+os3 = platform.system()
 name = socket.gethostname()
 ipadd = socket.gethostbyname(name)
 cpu = psutil.cpu_percent(4)
 ram = psutil.virtual_memory()[0] / 1000000000
 ram1 = psutil.virtual_memory()[3] / 1000000000
 ram2 = psutil.virtual_memory()[4] / 1000000000
+
 
 server_socket = socket.socket()
 print("Socket crée.")
@@ -30,7 +33,7 @@ print(data)
 while data !="arret":
 
     if data =="os"or data =="OS":
-        reply = str(f"Sserveur 1 : {os} {os1}")
+        reply = str(f"Sserveur 1 : {os3} {os1}")
         conn.send(reply.encode())
         print("Message envoyé")
         data = conn.recv(1024).decode()
@@ -69,8 +72,33 @@ while data !="arret":
         print("Message reçue du client:")
         print(data)
 
+    elif data =="python --version":
+        reply = str(f"La version de python qu'on utilise actullement est la {python_version()}")
+        conn.send(reply.encode())
+        print("Message envoyé")
+        data = conn.recv(1024).decode()
+        print("Message reçue du client:")
+        print(data)
+
+    elif data.startswith("DOS:mkdir "):
+        data1 = data.split()[1]
+        os.mkdir(data1)
+        reply = str(f"Le dossier {data1} a été créé")
+        conn.send(reply.encode())
+        print("Message envoyé")
+
     elif data =="disc":
         conn.close()
+
+        """
+            elif data.startswith("ping"):
+                ip = data.split()[1]
+                result = os.system("ping -c 1" + ip)
+                if result == 0:
+                    conn.send("{} atteint".format(ip).encode())
+                else:
+                    conn.send("inconnu".encode())
+        """
 
     else:
         reply = ""
