@@ -168,9 +168,16 @@ class MainWindow(QMainWindow):
         client_socket.close()
         QCoreApplication.exit(0)
 
+
 if __name__ == '__main__':
-    a = int(input("Tapez 1 (Serveur 1) ou 2 (Serveur 2) : "))
-    if a == 1:
+    app = QApplication(sys.argv)
+    box = QMessageBox()
+    box.setWindowTitle("Serveur ?")
+    box.setText("Quel serveur voulez vous utiliser ?")
+    box.addButton("Serveur 1", QMessageBox.AcceptRole)
+    box.addButton("Serveur 2", QMessageBox.AcceptRole)
+    ret = box.exec()
+    if ret == QMessageBox.AcceptRole:
         port = 1222
     else:
         port = 1223
@@ -180,7 +187,6 @@ if __name__ == '__main__':
     host = "localhost"
     client_socket.connect((host, port))
     print("Connecté au serveur.")
-    app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     app.exec()
