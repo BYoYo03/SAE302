@@ -1,0 +1,128 @@
+Pour plus d'informations sur une commande sp�cifique, entrez HELP
+suivi de la commande.
+ASSOC          Affiche ou modifie les applications associ�es aux extensions de
+               fichiers.
+ATTRIB         Affiche ou modifie les attributs d'un fichier.
+BREAK          Active ou d�sactive le contr�le �tendu de CTRL+C.
+BCDEDIT        D�finit les propri�t�s dans la base de donn�es de d�marrage pour
+               le contr�le du chargement d'amor�age.
+CACLS          Affiche ou modifie les listes de contr�les d'acc�s aux fichiers.
+CALL           Appelle un fichier de commandes � partir d'un autre fichier de
+               commandes.
+CD             Modifie le r�pertoire ou affiche le r�pertoire actif.
+CHCP           Modifie ou affiche le num�ro de la page de code active.
+CHDIR          Modifie le r�pertoire ou affiche le nom du r�pertoire actif.
+CHKDSK         V�rifie un disque et affiche un rapport d'�tat.
+CHKNTFS        Affiche ou modifie la v�rification du disque au d�marrage.
+CLS            Efface l'�cran.
+CMD            Ex�cute une nouvelle instance de l'interpr�teur de commandes de
+               Windows.
+COLOR          Modifie les couleurs du premier plan et de l'arri�re-plan de la
+               console.
+COMP           Compare les contenus de deux fichiers ou groupes de fichiers.
+COMPACT        Modifie ou affiche la compression des fichiers sur une
+               partition NTFS.
+CONVERT        Convertit des volumes FAT en volumes NTFS. Vous ne pouvez pas
+               convertir le lecteur en cours d'utilisation.
+COPY           Copie un ou plusieurs fichiers.
+DATE           Affiche ou d�finit la date.
+DEL            Supprime un ou plusieurs fichiers.
+DIR            Affiche la liste des fichiers et des sous-r�pertoires d'un
+               r�pertoire.
+DISKPART       Affiche ou configure les propri�t�s d'une partition de disque.
+DOSKEY         Modifie les lignes de commande, rappelle des commandes Windows,
+               et cr�e des macros.
+DRIVERQUERY    Affiche l'�tat et les propri�t�s du pilote de p�riph�rique en
+               cours d'utilisation.
+ECHO           Affiche des messages ou active/d�sactive l'affichage des
+               commandes.
+ENDLOCAL       Stoppe la localisation des modifications d'environnement dans
+               un fichier de commandes.
+ERASE          Supprime un ou plusieurs fichiers.
+EXIT           Quitte l'interpr�teur de commandes (CMD.EXE).
+FC             Compare deux fichiers ou groupes de fichiers et affiche 
+               les diff�rences.
+FIND           Recherche une cha�ne de caract�res dans un ou plusieurs
+               fichiers.
+FINDSTR        Cherche des cha�nes dans les fichiers.
+FOR            Ex�cute une commande sur chaque fichier d'un ensemble de
+               fichiers.
+FORMAT         Formate un disque devant �tre utilis� avec Windows.
+FSUTIL         Affiche ou configure les propri�t�s du syst�me de fichiers.
+FTYPE          Affiche ou modifie les types de fichiers utilis�s dans les
+               associations d'extensions.
+GOTO           Indique l'ex�cution d'un fichier de commandes pour une ligne
+               identifi�e par une �tiquette.
+GPRESULT       Affiche les informations de strat�gie de groupe pour un
+               ordinateur ou un utilisateur.
+GRAFTABL       Permet � Windows d'afficher un jeu de caract�res en 
+               mode graphique.
+HELP           Affiche des informations sur les commandes de Windows.
+ICACLS         Afficher, modifier, sauvegarder ou restaurer les listes de
+               contr�le d'acc�s pour les fichiers et les r�pertoires.
+IF             Effectue un traitement conditionnel dans un fichier de
+               commandes.
+LABEL          Cr�e, modifie ou supprime le nom de volume d'un disque.
+MD             Cr�e un r�pertoire.
+MKDIR          Cr�e un r�pertoire.
+MKLINK         Cr�er des liens symboliques et des liens physiques
+MODE           Configure un p�riph�rique du syst�me.
+MORE           Affiche la sortie �cran par �cran.
+MOVE           D�place un ou plusieurs fichiers d'un r�pertoire 
+               � un autre.
+OPENFILES      Affiche les fichiers partag�s ouverts � distance par les
+               utilisateurs.
+PATH           Affiche ou d�finit le chemin de recherche des fichiers
+               ex�cutables.
+PAUSE          Interrompt l'ex�cution d'un fichier de commandes et affiche un
+               message.
+POPD           Restaure la valeur pr�c�dente du r�pertoire actif enregistr�e
+               par PUSHD.
+PRINT          Imprime un fichier texte.
+PROMPT         Modifie l'invite de commande de Windows.
+PUSHD          Enregistre le r�pertoire actif puis le modifie.
+RD             Supprime un r�pertoire.
+RECOVER        R�cup�re l'information lisible d'un disque d�fectueux.
+REM            Ins�re un commentaire dans un fichier de commandes ou
+               CONFIG.SYS.
+REN            Renomme un ou plusieurs fichiers.
+RENAME         Renomme un ou plusieurs fichiers.
+REPLACE        Remplace des fichiers.
+RMDIR          Supprime un r�pertoire.
+ROBOCOPY       Utilitaire avanc� pour copier les fichiers et les
+               arborescences de r�pertoires
+SET            Affiche, d�finit ou supprime des variables d'environnement
+               Windows.
+SETLOCAL       Commence la localisation des modifications d'environnement dans
+               un fichier de commandes.
+SC             Affiche ou configure les services (processus en arri�re-plan).
+SCHTASKS       Planifie les commandes et les programmes � ex�cuter sur
+               l'ordinateur.
+SHIFT          Modifie la position des param�tres rempla�ables dans un fichier
+               de commandes.
+SHUTDOWN       Permet un arr�t local ou distant correct de l'ordinateur.
+SORT           Trie les entr�es.
+START          Ouvre une fen�tre s�par�e pour l'ex�cution d'un programme ou
+               d'une commande sp�cifique.
+SUBST          Associe un chemin d'acc�s � une lettre de lecteur.
+SYSTEMINFO     Affiche les propri�t�s et la configuration sp�cifiques de
+               l'ordinateur.
+TASKLIST       Affiche toutes les t�ches en cours d'ex�cution, y compris les
+               services.
+TASKKILL       Termine ou interrompt un processus ou une application en cours
+               d'ex�cution.
+TIME           Affiche ou d�finit l'heure du syst�me.
+TITLE          D�finit le titre de la fen�tre pour une session CMD.EXE.
+TREE           Affiche le graphisme de la structure de r�pertoire d'un lecteur
+               ou d'un chemin d'acc�s.
+TYPE           Affiche le contenu d'un fichier texte.
+VER            Affiche la version de Windows.
+VERIFY         Demande � Windows de v�rifier si vos fichiers sont
+               correctement �crits sur le disque.
+VOL            Affiche le nom et le num�ro de s�rie d'un volume de disque.
+XCOPY          Copie les fichiers et les arborescences de r�pertoires.
+WMIC           Affiche les informations WMI dans l'interface de commande
+               interactive.
+
+Pour obtenir plus d'informations sur les outils, consultez la r�f�rence de
+commande en ligne dans l'aide en ligne.
