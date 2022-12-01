@@ -38,14 +38,6 @@ class MainWindow(QMainWindow):
         disc = QPushButton("Disconnect")
         reset = QPushButton("Reset")
 
-        def __actionram(self):
-            message = "ram"
-            client_socket.send(message.encode())
-            self.sortie.append(f"{name}> {message}")
-            print("Message ram envoyé")
-            data = client_socket.recv(1024).decode()
-            self.sortie.append(f"{data}")
-
 
         # Ajouter les composants au grid ayout
         grid.addWidget(lab, 0, 2,)
