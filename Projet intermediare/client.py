@@ -5,17 +5,16 @@ from PyQt5.QtGui import QPalette
 import socket
 
 
-
 class MainWindow(QMainWindow):
 
 
     def __init__(self):
         super().__init__()
 
-        widget = QWidget()
-        self.setCentralWidget(widget)
+        widget1 = QWidget()
+        self.setCentralWidget(widget1)
         grid = QGridLayout()
-        widget.setLayout(grid)
+        widget1.setLayout(grid)
         qp = QPalette()
         qp.setColor(QPalette.ButtonText, Qt.black)
         qp.setColor(QPalette.Window, Qt.lightGray)
@@ -25,7 +24,7 @@ class MainWindow(QMainWindow):
 
         app.setPalette(qp)
 
-        lab = QLabel("Socket sur l'adresse {} et le port {}".format(host, port))
+        lab = QLabel("Connexion information : Socket sur l'adresse {} et le port {}".format(host, port))
         self.__lab = QLabel("Saisir une commande")
         self.__text = QLineEdit("")
         self.sortie = QTextEdit("")
@@ -37,14 +36,22 @@ class MainWindow(QMainWindow):
         nameB = QPushButton("name")
         QUIT = QPushButton("Kill")
         disc = QPushButton("Disconnect")
+        reset = QPushButton("Reset")
 
+        def __actionram(self):
+            message = "ram"
+            client_socket.send(message.encode())
+            self.sortie.append(f"{name}> {message}")
+            print("Message ram envoyé")
+            data = client_socket.recv(1024).decode()
+            self.sortie.append(f"{data}")
 
 
         # Ajouter les composants au grid ayout
         grid.addWidget(lab, 0, 2,)
-        grid.addWidget(self.__text, 9, 0, 1 , 3)
+        grid.addWidget(self.__text, 10, 0, 1 , 3)
         grid.addWidget(self.sortie, 1, 2,8,10)
-        grid.addWidget(entrer, 9, 5,)
+        grid.addWidget(entrer, 10, 5,)
         grid.addWidget(ramB, 2, 0)
         grid.addWidget(cpuB, 3, 0)
         grid.addWidget(ipB, 4, 0)
@@ -52,6 +59,7 @@ class MainWindow(QMainWindow):
         grid.addWidget(nameB, 6, 0)
         grid.addWidget(disc, 7, 0)
         grid.addWidget(QUIT, 8, 0)
+        grid.addWidget(reset, 9, 0)
 
         entrer.clicked.connect(self.__actionentrer)
         ramB.clicked.connect(self.__actionram)
@@ -61,6 +69,7 @@ class MainWindow(QMainWindow):
         nameB.clicked.connect(self.__actionname)
         QUIT.clicked.connect(self.__actionQUIT)
         disc.clicked.connect(self.__actiondisc)
+        reset.clicked.connect(self.__actionreset)
 
         self.setWindowTitle("SAE302")
 
@@ -81,7 +90,7 @@ class MainWindow(QMainWindow):
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
         print("Message ram envoyé")
-        data = client_socket.recv(1024).decode()
+        data = client_socket.recv(10000).decode()
         self.sortie.append(f"{data}")
 
     def __actioncpu(self):
@@ -89,7 +98,7 @@ class MainWindow(QMainWindow):
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
         print("Message cpu envoyé")
-        data = client_socket.recv(1024).decode()
+        data = client_socket.recv(10000).decode()
         self.sortie.append(f"{data}")
 
     def __actionip(self):
@@ -97,7 +106,7 @@ class MainWindow(QMainWindow):
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
         print("Message ip envoyé")
-        data = client_socket.recv(1024).decode()
+        data = client_socket.recv(10000).decode()
         self.sortie.append(f"{data}")
 
     def __actionos(self):
@@ -105,7 +114,7 @@ class MainWindow(QMainWindow):
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
         print("Message os envoyé")
-        data = client_socket.recv(1024).decode()
+        data = client_socket.recv(10000).decode()
         self.sortie.append(f"{data}")
 
     def __actionname(self):
@@ -113,19 +122,51 @@ class MainWindow(QMainWindow):
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
         print("Message name envoyé")
-        data = client_socket.recv(1024).decode()
+        data = client_socket.recv(10000).decode()
         self.sortie.append(f"{data}")
 
     def __actionQUIT(self):
         message = "arret"
-        client_socket.send(message.encode())
         print("Message QUIT envoyé")
-        client_socket.close()
-        QCoreApplication.exit(0)
-
+        box = QMessageBox()
+        box.setWindowTitle("Quitter ?")
+        box.setText("Voulez vous vraiment quitter ?")
+        box.addButton(QMessageBox.Yes)
+        box.addButton(QMessageBox.No)
+        ret = box.exec()
+        if ret == QMessageBox.Yes:
+            client_socket.send(message.encode())
+            client_socket.close()
+            QCoreApplication.exit(0)
+        else:
+            message=""
+            client_socket.send(message.encode())
 
     def __actiondisc(self):
-        pass
+        message = "disconnect"
+        box = QMessageBox()
+        box.setWindowTitle("Reconnexion ?")
+        box.setText("Voulez vous reconnecter au serveur ?")
+        box.addButton(QMessageBox.Yes)
+        box.addButton(QMessageBox.No)
+        ret = box.exec()
+        if ret == QMessageBox.Yes:
+            message = "reco"
+            client_socket.send(message.encode())
+            print("Message envoyé")
+            data = client_socket.recv(10000).decode()
+        else:
+            client_socket.send(message.encode())
+            client_socket.close()
+            QCoreApplication.exit(0)
+
+
+    def __actionreset(self):
+        message = "reset"
+        client_socket.send(message.encode())
+        print("Message reset envoyé")
+        client_socket.close()
+        QCoreApplication.exit(0)
 
 if __name__ == '__main__':
     a = int(input("Tapez 1 (Serveur 1) ou 2 (Serveur 2) : "))
@@ -141,9 +182,9 @@ if __name__ == '__main__':
     print("Connecté au serveur.")
     app = QApplication(sys.argv)
     window = MainWindow()
-
     window.show()
     app.exec()
+
 
 
 
