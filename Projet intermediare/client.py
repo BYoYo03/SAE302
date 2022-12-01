@@ -6,10 +6,6 @@ import socket
 
 
 
-
-name = socket.gethostname()
-
-
 class MainWindow(QMainWindow):
 
 
@@ -133,11 +129,11 @@ class MainWindow(QMainWindow):
 
 if __name__ == '__main__':
     a = int(input("Tapez 1 (Serveur 1) ou 2 (Serveur 2) : "))
-
     if a == 1:
         port = 1222
     else:
         port = 1223
+    name = socket.gethostname()
     client_socket = socket.socket()
     print("Socket créé.")
     host = "localhost"
