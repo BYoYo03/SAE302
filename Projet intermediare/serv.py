@@ -23,7 +23,7 @@ def serveur():
         print("Socket crée.")
         host = "localhost"
 
-        port = 1222
+        port = 1224
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
         server_socket.listen(5)
@@ -84,6 +84,15 @@ def serveur():
                     fichier.close()
                     print("Message envoyé")
 
+                elif data.startswith("ping"):
+                    ip = data.split()[1]
+                    print(ip)
+                    result = os.system("ping -c 1 " + ip)
+                    if result == 0:
+                        conn.send("{} atteint".format(ip).encode())
+                    else:
+                        conn.send("inconnu".encode())
+
                 else:
                     ps = os.system(data)
                     print("ps", ps)
@@ -102,12 +111,4 @@ def serveur():
 if __name__ == '__main__':
     serveur()
 
-"""
-    elif data.startswith("ping"):
-        ip = data.split()[1]
-        result = os.system("ping -c 1" + ip)
-        if result == 0:
-            conn.send("{} atteint".format(ip).encode())
-        else:
-            conn.send("inconnu".encode())
-"""
+

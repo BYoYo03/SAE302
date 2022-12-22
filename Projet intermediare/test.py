@@ -1,4 +1,10 @@
-import os
+import sys
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import QPalette
+import socket
+
+"""import os
 
 #ls = os.system('dir', )
 #print(f"-------------------> {ls}")
@@ -19,7 +25,7 @@ else:
 
 #print(os.listdir())
 ##print(os.getcwd())
-"""
+
 elif data.startswith("DOS:mkdir "):
 data1 = data.split()[1]
 os.mkdir(data1)
@@ -47,7 +53,7 @@ print("Message envoyé")
 data = conn.recv(1024).decode()
 print("Message reçue du client:")
 print(data)
-"""
+
 def serveur():
     msg = ""
     conn = None
@@ -55,7 +61,7 @@ def serveur():
     while msg != "kill" :
         msg = ""
         server_socket = socket.socket()
-        """ options qui permette de réutiliser l'adresse et le port rapidement"""
+         options qui permette de réutiliser l'adresse et le port rapidement
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         server_socket.bind(("localhost", 15001))
@@ -75,12 +81,29 @@ def serveur():
                     msg = conn.recv(1024).decode()
                     print ("Received from client: ", msg)
                     # msg = input('Enter a message to send: ')
-                    """ 
+   
                     le serveur va ici récupere les commandes du client et lui renvoyer. Dans la suite de la SAÉ, 
                     le serveur fera pareil mais en renvoyant le résultat des commandes demandées par le client.
-                    """
+
                     conn.send(msg.encode())
                 conn.close()
         print ("Connection closed")
         server_socket.close()
         print ("Server closed")
+
+"""
+
+box = QMessageBox()
+box.setWindowTitle("Reconnexion ?")
+box.setText("Voulez vous reconnecter au serveur ?")
+box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+ret = box.exec()
+    if ret == QMessageBox.setStandardButtons.Yes:
+        message = "reco"
+        client_socket.send(message.encode())
+        print("Message envoyé")
+        data = client_socket.recv(10000).decode()
+    else:
+        client_socket.send(message.encode())
+        client_socket.close()
+        QCoreApplication.exit(0)

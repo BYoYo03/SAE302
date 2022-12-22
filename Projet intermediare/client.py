@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import QPalette
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import QPalette
 import socket
 
 
@@ -15,14 +15,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget1)
         grid = QGridLayout()
         widget1.setLayout(grid)
-        qp = QPalette()
-        qp.setColor(QPalette.ButtonText, Qt.black)
-        qp.setColor(QPalette.Window, Qt.lightGray)
-        qp.setColor(QPalette.Button, Qt.darkGray)
-        qp.setColor(QPalette.Text, Qt.black)
-
-
-        app.setPalette(qp)
+ 
 
         lab = QLabel("Connexion information : Socket sur l'adresse {} et le port {}".format(host, port))
         self.__lab = QLabel("Saisir une commande")
@@ -119,38 +112,16 @@ class MainWindow(QMainWindow):
 
     def __actionQUIT(self):
         message = "arret"
-        print("Message QUIT envoyé")
-        box = QMessageBox()
-        box.setWindowTitle("Quitter ?")
-        box.setText("Voulez vous vraiment quitter ?")
-        box.addButton(QMessageBox.Yes)
-        box.addButton(QMessageBox.No)
-        ret = box.exec()
-        if ret == QMessageBox.Yes:
-            client_socket.send(message.encode())
-            client_socket.close()
-            QCoreApplication.exit(0)
-        else:
-            message=""
-            client_socket.send(message.encode())
+        client_socket.send(message.encode())
+        client_socket.close()
+        QCoreApplication.exit(0)
+
 
     def __actiondisc(self):
         message = "disconnect"
-        box = QMessageBox()
-        box.setWindowTitle("Reconnexion ?")
-        box.setText("Voulez vous reconnecter au serveur ?")
-        box.addButton(QMessageBox.Yes)
-        box.addButton(QMessageBox.No)
-        ret = box.exec()
-        if ret == QMessageBox.Yes:
-            message = "reco"
-            client_socket.send(message.encode())
-            print("Message envoyé")
-            data = client_socket.recv(10000).decode()
-        else:
-            client_socket.send(message.encode())
-            client_socket.close()
-            QCoreApplication.exit(0)
+        client_socket.send(message.encode())
+        client_socket.close()
+        QCoreApplication.exit(0)
 
 
     def __actionreset(self):
@@ -162,18 +133,9 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    box = QMessageBox()
-    box.setWindowTitle("Serveur ?")
-    box.setText("Quel serveur voulez vous utiliser ?")
-    box.addButton("Serveur 1", QMessageBox.AcceptRole)
-    box.addButton("Serveur 2", QMessageBox.AcceptRole)
-    ret = box.exec()
-    if ret == QMessageBox.AcceptRole:
-        port = 1222
-    else:
-        port = 1223
     name = socket.gethostname()
+    app = QApplication(sys.argv)
+    port = 1224
     client_socket = socket.socket()
     print("Socket créé.")
     host = "localhost"

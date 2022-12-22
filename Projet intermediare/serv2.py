@@ -78,6 +78,15 @@ def serveur():
                     fichier.close()
                     print("Message envoyé")
 
+                elif data.startswith("ping"):
+                    ip = data.split()[1]
+                    print(ip)
+                    result = os.system("ping -c 1 " + ip)
+                    if result == 0:
+                        conn.send("{} atteint".format(ip).encode())
+                    else:
+                        conn.send("inconnu".encode())
+
                 else:
                     ps = os.system(data)
                     print("ps", ps)
