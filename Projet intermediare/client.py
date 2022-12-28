@@ -169,10 +169,14 @@ if __name__ == '__main__':
     name = socket.gethostname()
     app = QApplication(sys.argv)
     client_socket = socket.socket()
-    fichier = open('access.txt', 'r')
-    reply = str(fichier.read())
-    port = 1220
-    host = "localhost"
+    fch = open('access.txt', 'r')
+    ipadd = fch.read()
+    fch.close()
+    print("tout", ipadd)
+    host = ipadd.split()[2]
+    print("ip", host)
+    port = int(ipadd.split()[3])
+    print("port", port)
     client_socket.connect((host, port))
     print("Socket créé")
     print("Connecté au serveur.")

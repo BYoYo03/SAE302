@@ -21,9 +21,14 @@ def serveur():
         data = ""
         server_socket = socket.socket()
         print("Socket crée.")
-        host = "localhost"
-
-        port = 1220
+        fch = open('access.txt', 'r')
+        ipadd = fch.read()
+        fch.close()
+        print(ipadd)
+        host = ipadd.split()[0]
+        print(host)
+        port = int(ipadd.split()[1])
+        print(port)
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
         server_socket.listen(5)
