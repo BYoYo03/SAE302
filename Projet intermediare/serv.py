@@ -99,18 +99,22 @@ def serveur():
                         conn.send("inconnu".encode())
 
                 elif data == "reset" or data == "RESET":
-                    print("Le client a demandé un reset")
+                    print("Reset du serveur")
                     print("Message envoyé")
+                    data = "reset"
 
                 
                 elif data == "arret" or data == "ARRET":
-                    print("Le client a demandé l'arrêt du serveur")
+                    print("Le client et le serveur sont deconnectés")
                     print("Message envoyé")
+                    data = "arret"
 
                 
                 elif data == "disconnect" or data == "DISCONNECT":
-                    print("Le client demande à se deconnecter")
+                    print("Le client s'est deconnecté")
                     print("Message envoyé")
+                    data = ""
+                    break
                 
                 else :
                     ps = os.system(data)

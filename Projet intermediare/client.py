@@ -32,20 +32,49 @@ class MainWindow(QMainWindow):
         disc = QPushButton("Disconnect")
         reset = QPushButton("Reset")
 
+        
+        # Style des composants
+        QUIT.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(159, 215, 255, 0.756);
+                }
+            QPushButton:hover {
+                color: "red";
+                }""")
+        disc.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(159, 215, 255, 0.756);
+                }
+            QPushButton:hover {
+                color: "Orange";
+                }""")
+        reset.setStyleSheet("""
+            QPushButton {
+                background-color: rgba(159, 215, 255, 0.756);
+                }
+            QPushButton:hover {
+                color: "Yellow";
+                }""")
+        
+        entrer.setStyleSheet("""
+            QPushButton {
+                width: 80px;
+            }""")
+
         # Ajouter les composants au grid ayout
         grid.addWidget(lab, 0, 2,)
         grid.addWidget(self.__lab, 0, 0,)
         grid.addWidget(self.__text, 10, 0, 1 , 3)
         grid.addWidget(self.sortie, 1, 2,8,10)
         grid.addWidget(entrer, 10, 5,)
-        grid.addWidget(ramB, 2, 0)
-        grid.addWidget(cpuB, 3, 0)
-        grid.addWidget(ipB, 4, 0)
-        grid.addWidget(osB, 5, 0)
-        grid.addWidget(nameB, 6, 0)
-        grid.addWidget(disc, 7, 0)
-        grid.addWidget(QUIT, 8, 0)
-        grid.addWidget(reset, 9, 0)
+        grid.addWidget(ramB, 1, 0)
+        grid.addWidget(cpuB, 2, 0)
+        grid.addWidget(ipB, 3, 0)
+        grid.addWidget(osB, 4, 0)
+        grid.addWidget(nameB, 5, 0)
+        grid.addWidget(disc, 6, 0)
+        grid.addWidget(QUIT, 7, 0)
+        grid.addWidget(reset, 8, 0)
 
 
         entrer.clicked.connect(self.__actionentrer)
@@ -124,6 +153,14 @@ class MainWindow(QMainWindow):
         box.setWindowTitle("Question")
         box.setText("Voulez-vous vraiment quitter ?")
         box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setStyleSheet("""
+            QPushButton {
+                width: 80px;
+            }
+            QPushButton:hover {
+                background-color: rgba(159, 215, 255, 0.756);
+                color:red;
+            }""")
         box.setIcon(QMessageBox.Icon.Question)
         button = box.exec()
         if button == QMessageBox.StandardButton.Yes:
@@ -138,34 +175,56 @@ class MainWindow(QMainWindow):
 
     def __actiondisc(self):
         message = "disconnect"
-        client_socket.send(message.encode())
-        print("Message disconnect envoyé")
+        
         box = QMessageBox(self)
         box.setWindowTitle("Question")
         box.setText("Voulez-vous vraiment vous déconnecter ?")
         box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setStyleSheet("""
+            QPushButton {
+                width: 80px;
+            }
+            QPushButton:hover {
+                background-color: rgba(159, 215, 255, 0.756);
+                color:red;
+            }
+            """)
+
         box.setIcon(QMessageBox.Icon.Question)
         button = box.exec()
         if button == QMessageBox.StandardButton.Yes:
+            client_socket.send(message.encode())
+            print("Message disconnect envoyé")
             client_socket.close()
             QCoreApplication.exit(0)
             print("Message deconnecter envoyé")
             print("Socket client fermé")
         else:
             print("No!")
+            pass
 
 
 
     def __actionreset(self):
         message = "reset"
-        client_socket.send(message.encode())
+        
         box = QMessageBox(self)
         box.setWindowTitle("Question")
         box.setText("Voulez-vous vraiment reset le serveur ?")
         box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+
+        box.setStyleSheet("""
+            QPushButton {
+                width: 80px;
+            }
+            QPushButton:hover {
+                background-color: rgba(159, 215, 255, 0.756);
+                color:red;
+            }""")
         box.setIcon(QMessageBox.Icon.Question)
         button = box.exec()
         if button == QMessageBox.StandardButton.Yes:
+            client_socket.send(message.encode())
             print("Message reset envoyé")
             print("Socket client fermé")
             client_socket.close()
@@ -191,6 +250,41 @@ if __name__ == '__main__':
 
     app2 = QApplication(sys.argv)
     box = QMessageBox()
+    box.setStyleSheet("""
+        QWidget {
+            width: 400px;
+            background-color: rgba(167, 173, 241, 0.669);
+            color: "white";
+            font-size: 13px;
+            font-family: 'quicksand', sans-serif;
+
+        }
+        QPushButton {
+            background-color: rgb(159, 215, 255);
+            color: rgb(255, 159, 215);
+            font-size: 13px;
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 3px;
+
+        }
+        QPushButton:hover {
+            background-color: rgb(159, 167, 255);
+            color: "white";
+            font-size: 16px;
+        }
+        
+        
+        QLabel {
+        background-color: rgba(167, 173, 241, 0.669);
+        color: "white";
+        font-size: 20px;
+        text-align: center;
+    
+        }
+        """)
+  
+
     box.setWindowTitle("Question")
     box.setText("Voulez-vous vous connecter au serveur 1 ou 2 ?")
     box.addButton(QPushButton("Serveur 1 : " + ip1), QMessageBox.ButtonRole.YesRole)
@@ -206,11 +300,15 @@ if __name__ == '__main__':
         port = port1
         print("Serveur 2")
 
+    window = MainWindow()
     client_socket = socket.socket()
     client_socket.connect((host, port))
     print("Socket créé")
     print("Connecté au serveur.")
-    window = MainWindow()
+
+    with open("style.css","r") as file:
+        window.setStyleSheet(file.read())
+
     window.show()
     app2.exec()
 

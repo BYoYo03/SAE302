@@ -1,0 +1,56 @@
+
+
+body {
+    background-color: "black";
+    color: "white";
+    font-size: 13px;
+    font-family: 'quicksand', sans-serif;
+}
+
+QWidget {
+    background-color: rgba(167, 173, 241, 0.669);
+    color: "white";
+    font-size: 13px;
+    font-family: 'quicksand', sans-serif;
+
+}
+QPushButton {
+    background-color: rgb(159, 215, 255);
+    color: "white";
+    font-size: 13px;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 3px;
+
+}
+QPushButton:hover {
+    background-color: rgb(159, 167, 255);
+    color: "white";
+    font-size: 16px;
+
+}
+QTextEdit {
+    background-color: rgba(159, 215, 255, 0.756);
+    color: "BLACK";
+    font-size: 13px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 3px;
+}
+QLineEdit {
+    background-color: rgb(159, 215, 255);
+    color: "BLACK";
+    font-size: 13px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 3px;
+}
+QLabel {
+    color: "white";
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+
