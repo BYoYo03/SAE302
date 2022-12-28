@@ -10,11 +10,10 @@ def serveur():
     os1 = platform.release()
     os3 = platform.system()
     name = socket.gethostname()
-    ipadd = socket.gethostbyname(name)
     cpu = psutil.cpu_percent(4)
     ram = psutil.virtual_memory()[0] / 1000000000
     ram1 = psutil.virtual_memory()[3] / 1000000000
-    ram2 = psutil.virtual_memory()[4] / 1000000000
+    ram2 = psutil.virtual_memory()[1] / 1000000000
 
     data = ""
     while data != "arret":
@@ -29,6 +28,7 @@ def serveur():
         print(host)
         port = int(ipadd.split()[1])
         print(port)
+        ipadd = socket.gethostbyname(host)
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
         server_socket.listen(5)
@@ -98,7 +98,21 @@ def serveur():
                     else:
                         conn.send("inconnu".encode())
 
-                else:
+                elif data == "reset" or data == "RESET":
+                    print("Le client a demandé un reset")
+                    print("Message envoyé")
+
+                
+                elif data == "arret" or data == "ARRET":
+                    print("Le client a demandé l'arrêt du serveur")
+                    print("Message envoyé")
+
+                
+                elif data == "disconnect" or data == "DISCONNECT":
+                    print("Le client demande à se deconnecter")
+                    print("Message envoyé")
+                
+                else :
                     ps = os.system(data)
                     print("ps", ps)
                     ls = os.popen(data).read()
@@ -108,10 +122,11 @@ def serveur():
                     else:
                         conn.send(ls.encode())
                     print("Message envoyé")
-
-        print("Connection closed")
+        
+        print("Connexion fermé")
         server_socket.close()
-        print("Server fermé")
+        print("Socket fermé")
+    
 
 if __name__ == '__main__':
     serveur()

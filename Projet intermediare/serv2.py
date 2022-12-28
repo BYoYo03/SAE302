@@ -9,7 +9,6 @@ def serveur():
     os1 = platform.release()
     os3 = platform.system()
     name = socket.gethostname()
-    ipadd = socket.gethostbyname(name)
     cpu = psutil.cpu_percent(4)
     ram = psutil.virtual_memory()[0] / 1000000000
     ram1 = psutil.virtual_memory()[3] / 1000000000
@@ -28,6 +27,7 @@ def serveur():
         print(host)
         port = int(ipadd.split()[3])
         print(port)
+        ipadd = socket.gethostbyname(host)
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
         server_socket.listen(5)
@@ -110,12 +110,3 @@ def serveur():
 if __name__ == '__main__':
     serveur()
 
-"""
-    elif data.startswith("ping"):
-        ip = data.split()[1]
-        result = os.system("ping -c 1" + ip)
-        if result == 0:
-            conn.send("{} atteint".format(ip).encode())
-        else:
-            conn.send("inconnu".encode())
-"""
