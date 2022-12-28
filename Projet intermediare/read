@@ -1,0 +1,8 @@
+fch = open('/Users/yoyo/Documents/Prog2annee/SAE302/Projet intermediare/access.txt', 'r')
+ipadd = fch.read()
+fch.close()
+ipadd = ipadd.split()[0]
+port = int(ipadd.split()[1])
+ipadd = ipadd.split()[0]
+print(ipadd)
+print(port)

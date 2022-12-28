@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget1)
         grid = QGridLayout()
         widget1.setLayout(grid)
- 
+
 
         lab = QLabel("Connexion information : Socket sur l'adresse {} et le port {}".format(host, port))
         self.__lab = QLabel("Saisir une commande")
@@ -31,7 +31,6 @@ class MainWindow(QMainWindow):
         disc = QPushButton("Disconnect")
         reset = QPushButton("Reset")
 
-
         # Ajouter les composants au grid ayout
         grid.addWidget(lab, 0, 2,)
         grid.addWidget(self.__text, 10, 0, 1 , 3)
@@ -46,6 +45,7 @@ class MainWindow(QMainWindow):
         grid.addWidget(QUIT, 8, 0)
         grid.addWidget(reset, 9, 0)
 
+
         entrer.clicked.connect(self.__actionentrer)
         ramB.clicked.connect(self.__actionram)
         cpuB.clicked.connect(self.__actioncpu)
@@ -56,7 +56,8 @@ class MainWindow(QMainWindow):
         disc.clicked.connect(self.__actiondisc)
         reset.clicked.connect(self.__actionreset)
 
-        self.setWindowTitle("SAE302")
+        self.setWindowTitle("Client")
+
 
     def __actionentrer(self):
         message = self.__text.text()
@@ -113,34 +114,69 @@ class MainWindow(QMainWindow):
     def __actionQUIT(self):
         message = "arret"
         client_socket.send(message.encode())
-        client_socket.close()
-        QCoreApplication.exit(0)
+        box = QMessageBox(self)
+        box.setWindowTitle("Question")
+        box.setText("Voulez-vous vraiment quitter ?")
+        box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setIcon(QMessageBox.Icon.Question)
+        button = box.exec()
+        if button == QMessageBox.StandardButton.Yes:
+            client_socket.close()
+            QCoreApplication.exit(0)
+        else:
+            print("No!")
 
 
     def __actiondisc(self):
         message = "disconnect"
         client_socket.send(message.encode())
-        client_socket.close()
-        QCoreApplication.exit(0)
+        print("Message disconnect envoyé")
+        box = QMessageBox(self)
+        box.setWindowTitle("Question")
+        box.setText("Voulez-vous vraiment vous déconnecter ?")
+        box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setIcon(QMessageBox.Icon.Question)
+        button = box.exec()
+        if button == QMessageBox.StandardButton.Yes:
+            client_socket.close()
+            QCoreApplication.exit(0)
+        else:
+            print("No!")
+
 
 
     def __actionreset(self):
         message = "reset"
         client_socket.send(message.encode())
-        print("Message reset envoyé")
-        client_socket.close()
-        QCoreApplication.exit(0)
+        box = QMessageBox(self)
+        box.setWindowTitle("Question")
+        box.setText("Voulez-vous vraiment reset le serveur ?")
+        box.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        box.setIcon(QMessageBox.Icon.Question)
+        button = box.exec()
+        if button == QMessageBox.StandardButton.Yes:
+            print("Message reset envoyé")
+            client_socket.close()
+            QCoreApplication.exit(0)
+        else:
+            print("No!")
+        
+        
 
 
 if __name__ == '__main__':
+    
     name = socket.gethostname()
     app = QApplication(sys.argv)
-    port = 1224
     client_socket = socket.socket()
-    print("Socket créé.")
+    fichier = open('access.txt', 'r')
+    reply = str(fichier.read())
+    port = 1220
     host = "localhost"
     client_socket.connect((host, port))
+    print("Socket créé")
     print("Connecté au serveur.")
+
     window = MainWindow()
     window.show()
     app.exec()

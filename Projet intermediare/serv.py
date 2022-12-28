@@ -23,7 +23,7 @@ def serveur():
         print("Socket crée.")
         host = "localhost"
 
-        port = 1224
+        port = 1220
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
         server_socket.listen(5)
