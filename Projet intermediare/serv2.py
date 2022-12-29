@@ -12,7 +12,7 @@ def serveur():
     cpu = psutil.cpu_percent(4)
     ram = psutil.virtual_memory()[0] / 1000000000
     ram1 = psutil.virtual_memory()[3] / 1000000000
-    ram2 = psutil.virtual_memory()[4] / 1000000000
+    ram2 = psutil.virtual_memory()[1] / 1000000000
 
     data = ""
     while data != "arret":
@@ -91,11 +91,23 @@ def serveur():
                     fichier.write(data + "\n")
                     print("fait")
                     fichier.close()
+                
+                elif data =="clear" or data =="CLEAR":
+                    os.system("clear")
+                    print(f"Message {data} reçu")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data =="disc":
                     print("Le client s'est deconnecté")
                     print("Message envoyé")
                     data = ""
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data == "help" or data == "HELP":
                     fichier = open('help.txt', 'r')
@@ -109,32 +121,61 @@ def serveur():
                     fichier.close()
 
                 elif data.startswith("ping"):
-                    ip = data.split()[1]
-                    print(ip)
-                    result = os.system("ping -c 1 " + ip)
-                    if result == 0:
-                        conn.send("{} atteint".format(ip).encode())
-                    else:
-                        conn.send("inconnu".encode())
-                    print("Message envoyé")
-                    fichier = open('historique.txt', 'a')
-                    fichier.write(data + "\n")
-                    print("fait")
-                    fichier.close()
+                    try: 
+                        ip = data.split()[1]
+                        print(ip)
+                        result = os.system("ping -c 1 " + ip)
+                        if result == 0:
+                            ping = str(f"PING {ip} OK ")
+                            conn.send(ping.encode())
+                        else:
+                            ping = str(f"PING {ip} FAIL ")
+                            conn.send(ping.encode())
+                        print("Message envoyé")
+                        fichier = open('historique.txt', 'w')
+                        fichier.write(data + "\n")
+                        print("fait")
+                        fichier.close()
+                    except:
+                        print("Erreur de saisie")
+                        conn.send("Erreur de saisie".encode())
+                        fichier = open('historique.txt', 'w')
+                        fichier.write(data + "\n")
+                        print("fait")
+                        fichier.close()
 
                 elif data == "reset" or data == "RESET":
                     print("Le client a demandé un reset")
                     print("Message envoyé")
-
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data == "arret" or data == "ARRET":
                     print("Le client a demandé l'arrêt du serveur")
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
 
                 elif data == "disconnect" or data == "DISCONNECT":
                     print("Le client demande à se deconnecter")
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+                
+                elif data == "commandeavant" or data == "COMMANDEAVANT":
+                    fichier = open('historique.txt', 'r')
+                    with open('historique.txt', 'r') as f:
+                        last_line = f.readlines()[-1]
+                    conn.send(last_line.encode())
+                    fichier.close()
+                    print(f"Message {last_line} envoyé")
 
                 else:
                     ps = os.system(data)

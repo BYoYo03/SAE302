@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
             # Réception du message du serveur
             data = client_socket.recv(10000).decode()
             # Affichage du message dans l'interface graphique
-            self.sortie.append(f"{data}")
+            self.sortie.append(f"{data[:-1]} ") # Le -1 permet de supprimer le retour à la ligne
         # Effacement de la ligne d'entrée aprés l'envoi du message
         self.__text.setText("")
         self.__text.setFocus()

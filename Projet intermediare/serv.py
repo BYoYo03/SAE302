@@ -4,7 +4,6 @@ import psutil
 import platform
 import os
 from platform import python_version
-import time
 
 # Fonction qui permet de créer le serveur
 
@@ -152,11 +151,10 @@ def serveur():
                     print("Le client s'est deconnecté")
                     print("Message envoyé")
                     data = ""
-
-                elif data =="reco" or data == "reco":
-                    reply = str(f"Serveur 1 : Reconnexion")
-                    conn.send(reply.encode())
-                    print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data == "help" or data == "HELP":
                     fichier = open('help.txt', 'r')
@@ -170,19 +168,29 @@ def serveur():
                     fichier.close()
 
 
-                elif data.startswith("ping"):
-                    ip = data.split()[1]
-                    print(ip)
-                    result = os.system("ping -c 1 " + ip)
-                    if result == 0:
-                        conn.send("{} atteint".format(ip).encode())
-                    else:
-                        conn.send("inconnu".encode())
-                    print("Message envoyé")
-                    fichier = open('historique.txt', 'w')
-                    fichier.write(data + "\n")
-                    print("fait")
-                    fichier.close()
+                elif data.startswith("ping "):
+                    try: 
+                        ip = data.split()[1]
+                        print(ip)
+                        result = os.system("ping -c 1 " + ip)
+                        if result == 0:
+                            ping = str(f"PING {ip} OK ")
+                            conn.send(ping.encode())
+                        else:
+                            ping = str(f"PING {ip} FAIL ")
+                            conn.send(ping.encode())
+                        print("Message envoyé")
+                        fichier = open('historique.txt', 'w')
+                        fichier.write(data + "\n")
+                        print("fait")
+                        fichier.close()
+                    except:
+                        print("Erreur de saisie")
+                        conn.send("Erreur de saisie".encode())
+                        fichier = open('historique.txt', 'w')
+                        fichier.write(data + "\n")
+                        print("fait")
+                        fichier.close()
                 
                 elif data == "commandeavant" or data == "COMMANDEAVANT":
                     fichier = open('historique.txt', 'r')
@@ -191,8 +199,6 @@ def serveur():
                     conn.send(last_line.encode())
                     fichier.close()
                     print(f"Message {last_line} envoyé")
-
-
 
                 elif data == "reset" or data == "RESET":
                     print("Reset du serveur")
