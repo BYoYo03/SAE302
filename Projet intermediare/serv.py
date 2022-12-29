@@ -23,11 +23,8 @@ def serveur():
         fch = open('access.txt', 'r')
         ipadd = fch.read()
         fch.close()
-        print(ipadd)
         host = ipadd.split()[0]
-        print(host)
         port = int(ipadd.split()[1])
-        print(port)
         ipadd = socket.gethostbyname(host)
         server_socket.bind((host, port))
         print("Socket sur l'adresse {} et le port {}".format(host, port))
@@ -46,31 +43,63 @@ def serveur():
                     reply = str(f"Sserveur 1 : {os3} {os1}")
                     conn.send(reply.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data == "ram" or data =="RAM":
                     reply = str(f"Serveur 1 : Ram Total : {round(ram, 2)} Go\nRam utilisé : {round(ram1, 0)} Go\nRam libre: {round(ram2, 2)} Go")
                     conn.send(reply.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data == "cpu" or data =="CPU":
                     reply = str(f"Serveur 1 : CPU utilisé : {cpu} %")
                     conn.send(reply.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
 
                 elif data =="ip" or data == "IP":
                     reply = str(f"Serveur 1 : L'adresse ip est : {ipadd}")
                     conn.send(reply.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+                    
 
                 elif data =="name" or data =="Name":
                     reply = str(f"Serveur 1 : Le nom de la machine est: {name}")
                     conn.send(reply.encode())
                     print("Message envoyé")
-
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+                
+                elif data =="clear" or data =="CLEAR":
+                    os.system("clear")
+                    print(f"Message {data} reçu")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+                    
                 elif data =="python --version":
                     reply = str(f"La version de python qu'on utilise actullement est la {python_version()}")
                     conn.send(reply.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
 
                 elif data =="disc":
                     print("Le client s'est deconnecté")
@@ -88,6 +117,11 @@ def serveur():
                     conn.send(reply.encode())
                     fichier.close()
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+
 
                 elif data.startswith("ping"):
                     ip = data.split()[1]
@@ -97,6 +131,21 @@ def serveur():
                         conn.send("{} atteint".format(ip).encode())
                     else:
                         conn.send("inconnu".encode())
+                    print("Message envoyé")
+                    fichier = open('historique.txt', 'w')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
+                
+                elif data == "commandeavant" or data == "COMMANDEAVANT":
+                    fichier = open('historique.txt', 'r')
+                    with open('historique.txt', 'r') as f:
+                        last_line = f.readlines()[-1]
+                    conn.send(last_line.encode())
+                    fichier.close()
+                    print(f"Message {last_line} envoyé")
+
+
 
                 elif data == "reset" or data == "RESET":
                     print("Reset du serveur")
@@ -126,6 +175,10 @@ def serveur():
                     else:
                         conn.send(ls.encode())
                     print("Message envoyé")
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
+                    fichier.close()
         
         print("Connexion fermé")
         server_socket.close()

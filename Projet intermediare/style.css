@@ -4,15 +4,14 @@ body {
     background-color: "black";
     color: "white";
     font-size: 13px;
-    font-family: 'quicksand', sans-serif;
+    font-family: 'verdana', sans-serif;
 }
 
 QWidget {
     background-color: rgba(167, 173, 241, 0.669);
     color: "white";
     font-size: 13px;
-    font-family: 'quicksand', sans-serif;
-
+    font-family: 'verdana', sans-serif;
 }
 QPushButton {
     background-color: rgb(159, 215, 255);

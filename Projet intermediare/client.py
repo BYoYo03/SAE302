@@ -80,6 +80,10 @@ class MainWindow(QMainWindow):
         entrer.clicked.connect(self.__actionentrer)
         entrerpress = QShortcut(QKeySequence("Return"), self)
         entrerpress.activated.connect(self.__actionentrer)
+        quitter = QShortcut(QKeySequence("Esc"), self)
+        quitter.activated.connect(self.__actionQUIT)
+        commandeavnt = QShortcut(QKeySequence("Up"), self)
+        commandeavnt.activated.connect(self.__actioncommandeavnt)
         ramB.clicked.connect(self.__actionram)
         cpuB.clicked.connect(self.__actioncpu)
         ipB.clicked.connect(self.__actionip)
@@ -96,16 +100,30 @@ class MainWindow(QMainWindow):
         message = self.__text.text()
         client_socket.send(message.encode())
         self.sortie.append(f"{name}> {message}")
-        print("Message envoyé")
-        if message == "arret":
+        print(f"Message {message} envoyé")
+        if message == "arret" or message == "quit" or message == "exit" or message == "kill":
             client_socket.close()
             QCoreApplication.exit(0)
+        elif message == "deco" or message == "disconnect" or message == "deconnexion" or message == "deconnect": 
+            client_socket.close()
+            QCoreApplication.exit(0)
+        elif message == "reset":
+            client_socket.close()
+            QCoreApplication.exit(0)
+        elif message == "clear":
+            self.sortie.setText("")
         else:
             data = client_socket.recv(10000).decode()
             self.sortie.append(f"{data}")
         self.__text.setText("")
         self.__text.setFocus()
 
+    def __actioncommandeavnt(self):
+        message="commandeavant"
+        client_socket.send(message.encode())
+        print(f"Message {message} envoyé")
+        data = client_socket.recv(10000).decode()
+        self.__text.setText(data[:-1])
 
     def __actionram(self):
         message = "ram"
@@ -256,7 +274,7 @@ if __name__ == '__main__':
             background-color: rgba(167, 173, 241, 0.669);
             color: "white";
             font-size: 13px;
-            font-family: 'quicksand', sans-serif;
+            font-family: 'Verdana';
 
         }
         QPushButton {
