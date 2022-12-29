@@ -234,7 +234,12 @@ def serveur():
                         cmd = (f"Erreur d'éxcution de la commande {data}, n'existe pas sur cette os : {os3} {os1}")
                         conn.send(cmd.encode())
                     else:
-                        conn.send(ls.encode())
+                        print("ls", ls)
+                        if ls == "":
+                            ls = "Commande exécuté avec succès ! "
+                            conn.send(ls.encode())
+                        else:
+                            conn.send(ls.encode())
                     print("Message envoyé")
                     fichier = open('historique.txt', 'a')
                     fichier.write(data + "\n")

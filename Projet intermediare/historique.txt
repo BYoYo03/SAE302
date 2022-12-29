@@ -4,3 +4,33 @@ cpu
 lmnbdf
 lmqn
 clear
+arret
+reboot
+kilkr
+kilkrlmqf
+lmzn
+clear
+mkdir toto
+mkdir toto
+mkdir tota
+mkdir tota
+arret
+kill
+mkdir toto
+rmdir toto
+touch d
+rmdir d
+delete d
+ls
+la
+diskutil
+pwd
+ cd ..
+pwd
+cd ..
+rm d
+ls
+du
+du -h
+open cmd
+open Terminal
