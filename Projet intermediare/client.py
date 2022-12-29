@@ -235,7 +235,6 @@ class MainWindow(QMainWindow):
                 background-color: rgba(159, 215, 255, 0.756);
                 color:red;
             }""")
-        box.setIcon(QMessageBox.Icon.Question)
         # Execution de la boite de dialogue
         button = box.exec()
 
@@ -275,8 +274,6 @@ class MainWindow(QMainWindow):
                 color:red;
             }
             """)
-         # Icone de la boite de dialogue
-        box.setIcon(QMessageBox.Icon.Question)
         # Affichage de la boite de dialogue
         button = box.exec()
 
@@ -319,18 +316,17 @@ class MainWindow(QMainWindow):
                 background-color: rgba(159, 215, 255, 0.756);
                 color:red;
             }""")
-        box.setIcon(QMessageBox.Icon.Question)
         # Affichage de la boite de dialogue
         button = box.exec()
         # Si on clique sur oui alors on quitte
         if button == QMessageBox.StandardButton.Yes:
             # Envoi du message au serveur
             client_socket.send(message.encode())
+            client_socket.close()
             # Affichage du message de confirmation dans la console
             print("Message reset envoyé")
             print("Socket client fermé")
             # Fermeture de la socket client et de l'application
-            client_socket.close()
             QCoreApplication.exit(0)
         else:
             print("No!")
@@ -371,13 +367,13 @@ if __name__ == '__main__':
             width: 400px;
             background-color: #666666;
             color: "white";
-            font-size: 13px;
+            font-size: 12px;
             font-family: 'Verdana';
         }
         QPushButton {
             background-color: #4d4d4d;
             color: "white";
-            font-size: 13px;
+            font-size: 11px;
             border: 1px solid white;
             border-radius: 2px;
             padding: 3px;
@@ -385,11 +381,11 @@ if __name__ == '__main__':
         QPushButton:hover {
             background-color: rgba(159, 215, 255, 0.756);
             color: "white";
-            font-size: 16px;
+            font-size: 13px;
         }
         QLabel {
         color: "white";
-        font-size: 20px;
+        font-size: 12px;
         text-align: center;
     
         }

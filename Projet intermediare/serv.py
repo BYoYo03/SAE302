@@ -4,6 +4,7 @@ import psutil
 import platform
 import os
 from platform import python_version
+import time
 
 # Fonction qui permet de créer le serveur
 
@@ -197,18 +198,26 @@ def serveur():
                     print("Reset du serveur")
                     print("Message envoyé")
                     data = "reset"
-
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
                 
                 elif data == "arret" or data == "ARRET":
                     print("Le client et le serveur sont deconnectés")
                     print("Message envoyé")
                     data = "arret"
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
 
                 
                 elif data == "disconnect" or data == "DISCONNECT":
                     print("Le client s'est deconnecté")
                     print("Message envoyé")
                     data = ""
+                    fichier = open('historique.txt', 'a')
+                    fichier.write(data + "\n")
+                    print("fait")
                     break
                 
                 else :

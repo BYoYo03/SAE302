@@ -1,19 +1,10 @@
 
 
 /* Path: Projet intermediare/style.css */
-/* Style pour la fenetre principale */
-body {
-    background-color: "black";
-    color: "white";
-    font-size: 13px;
-    font-family: 'arial', sans-serif;
-}
 /* Style pour la fenetre*/
 
 QWidget {
     background-color: #666666;
-    color: "white";
-    font-size: 13px;
     font-family: 'verdana', sans-serif;
 }
 
@@ -21,7 +12,7 @@ QWidget {
 QPushButton {
     background-color: #4d4d4d;
     color: "white";
-    font-size: 13px;
+    font-size: 11px;
     border: 1px solid white;
     border-radius: 2px;
     padding: 3px;
@@ -30,20 +21,20 @@ QPushButton {
 
 /* Style pour les boutons quand on passe la souris dessus */
 QPushButton:hover {
-    background-color: rgba(159, 215, 255, 0.756);
+    background-color: rgb(159, 215, 255);
     color: "white";
-    font-size: 16px;
+    font-size: 13px;
 
 }
 
 /* Style pour la zone de texte */
 QTextEdit {
     /*couleur de fond*/
-    background-color: rgba(159, 215, 255, 0.756);
+    background-color: rgb(159, 215, 255);
     /*couleur du texte*/
     color: "BLACK";
     /*taille de la police*/
-    font-size: 13px;
+    font-size: 12px;
     /*bordure*/
     border: 1px solid rgb(255, 255, 255);
     /*arrondi des bords*/
@@ -57,7 +48,7 @@ QTextEdit {
 QLineEdit {
     background-color: rgb(159, 215, 255);
     color: "BLACK";
-    font-size: 13px;
+    font-size: 12px;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 2px;
     padding: 3px;
@@ -65,9 +56,12 @@ QLineEdit {
 
 /* Style pour les labels */
 QLabel {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
     color: "white";
     text-align: center;
-    font-size: 20px;
+    font-size: 12px;
 }
 
 
