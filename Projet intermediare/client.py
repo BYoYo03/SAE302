@@ -87,10 +87,13 @@ class MainWindow(QMainWindow):
         quitter = QShortcut(QKeySequence("Esc"), self)
         quitter.activated.connect(self.__actionQUIT)
         commandeavnt = QShortcut(QKeySequence("Up"), self)
+        commandeavnt.activated.connect(self.__actioncommandeavnt)
+        
+
+
     
         # Connexion des composants aux fonctions
         entrer.clicked.connect(self.__actionentrer)
-        commandeavnt.activated.connect(self.__actioncommandeavnt)
         ramB.clicked.connect(self.__actionram)
         cpuB.clicked.connect(self.__actioncpu)
         ipB.clicked.connect(self.__actionip)
@@ -108,36 +111,41 @@ class MainWindow(QMainWindow):
         # Récupération du message
         message = self.__text.text()
         # Envoi du message au serveur
-        client_socket.send(message.encode())
-        # Affichage du message dans l'interface graphique
-        self.sortie.append(f"{name}> {message}")
-        # Affichage du message de confirmation dans la console
-        print(f"Message {message} envoyé")
-
-         # Commandes spéciales
-        if message == "arret" or message == "quit" or message == "exit" or message == "kill":
-            # Fermeture de la connexion
-            client_socket.close()
-            QCoreApplication.exit(0)
-        elif message == "deco" or message == "disconnect" or message == "deconnexion" or message == "deconnect": 
-            # Fermeture de la connexion côte client
-            client_socket.close()
-            QCoreApplication.exit(0)
-        elif message == "reset":
-            # Reset de la connexion côte serveur donc fermeture socket client
-            client_socket.close()
-            QCoreApplication.exit(0)
-        elif message == "clear":
-            # Effacement de la console
-            self.sortie.setText("")
+        if message == " " or message =="" or message.startswith(" "):
+            # N'affiche rien si le message est vide
+            self.__text.setFocus()
         else:
-            # Réception du message du serveur
-            data = client_socket.recv(10000).decode()
+            client_socket.send(message.encode())
             # Affichage du message dans l'interface graphique
-            self.sortie.append(f"{data[:-1]} ") # Le -1 permet de supprimer le retour à la ligne
-        # Effacement de la ligne d'entrée aprés l'envoi du message
-        self.__text.setText("")
-        self.__text.setFocus()
+            self.sortie.append(f"{name}> {message}")
+            # Affichage du message de confirmation dans la console
+            print(f"Message {message} envoyé")
+
+            # Commandes spéciales
+            if message == "arret" or message == "quit" or message == "exit" or message == "kill":
+                # Fermeture de la connexion
+                client_socket.close()
+                QCoreApplication.exit(0)
+            elif message == "deco" or message=="disc" or message == "disconnect" or message == "deconnexion" or message == "deconnect": 
+                # Fermeture de la connexion côte client
+                client_socket.close()
+                QCoreApplication.exit(0)
+            elif message == "reset":
+                # Reset de la connexion côte serveur donc fermeture socket client
+                client_socket.close()
+                QCoreApplication.exit(0)
+            elif message == "clear":
+                # Effacement de la console
+                self.sortie.setText("")
+    
+            else:
+                # Réception du message du serveur
+                data = client_socket.recv(10000).decode()
+                # Affichage du message dans l'interface graphique
+                self.sortie.append(f"{data[:-1]} ") # Le -1 permet de supprimer le retour à la ligne
+            # Effacement de la ligne d'entrée aprés l'envoi du message
+            self.__text.setText("")
+            self.__text.setFocus()
 
         # Commandes rapides de l'histotique en appuyant sur la touche haut
     def __actioncommandeavnt(self):
@@ -150,6 +158,7 @@ class MainWindow(QMainWindow):
         data = client_socket.recv(10000).decode()
         # Affichage du message dans la ligne d'entrée
         self.__text.setText(data[:-1])
+
 
         # Commandes rapides
     def __actionram(self):

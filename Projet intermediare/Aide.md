@@ -37,7 +37,6 @@ Il faut garder ce schéma d'écriture.
 Exemple :
 
 127.0.0.1 1222 localhost 1227
-
     ^       ^      ^      ^  
     ip    port     ip    port
 

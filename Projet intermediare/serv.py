@@ -55,10 +55,11 @@ def serveur():
             while data != "arret" and data != "reset" and data != "disconnect":
                 # On récupère les données du client
                 data = conn.recv(1024).decode()
+                data = data.lower()
                 # On affiche sur la console le message reçu du client
                 print(f"Message reçue {data} du client:")
                 # Si le message est os ou OS on envoie le nom de l'os
-                if data =="os" or data =="OS":
+                if data =="os":
                     # On envoie le nom de l'os
                     reply = str(f"Sserveur 1 : {os3} {os1}")
                     conn.send(reply.encode())
@@ -74,7 +75,7 @@ def serveur():
                     fichier.close()
 
                 #  Si le message est ram on envoie la ram du serveur
-                elif data == "ram" or data =="RAM":
+                elif data == "ram":
                     # On envoie la ram du serveur
                     reply = str(f"Serveur 1 : Ram Total : {round(ram, 2)} Go\nRam utilisé : {round(ram1, 0)} Go\nRam libre: {round(ram2, 2)} Go")
                     conn.send(reply.encode())
@@ -90,7 +91,7 @@ def serveur():
                     fichier.close()
 
                 #  Si le message est cpu on envoie le cpu du serveur
-                elif data == "cpu" or data =="CPU":
+                elif data == "cpu":
                     # On envoie le cpu du serveur
                     reply = str(f"Serveur 1 : CPU utilisé : {cpu} %")
                     conn.send(reply.encode())
@@ -106,7 +107,7 @@ def serveur():
                     fichier.close()
 
                 #  Si le message est ip on envoie l'ip du serveur
-                elif data =="ip" or data == "IP":
+                elif data =="ip":
                     # On envoie l'ip du serveur
                     reply = str(f"Serveur 1 : L'adresse ip est : {ipadd}")
                     conn.send(reply.encode())
@@ -122,7 +123,7 @@ def serveur():
                     fichier.close()
                     
 
-                elif data =="name" or data =="Name":
+                elif data =="name":
                     reply = str(f"Serveur 1 : Le nom de la machine est: {name}")
                     conn.send(reply.encode())
                     print("Message envoyé")
@@ -131,7 +132,7 @@ def serveur():
                     print("fait")
                     fichier.close()
                 
-                elif data =="clear" or data =="CLEAR":
+                elif data =="clear":
                     os.system("clear")
                     print(f"Message {data} reçu")
                     fichier = open('historique.txt', 'a')
@@ -140,23 +141,15 @@ def serveur():
                     fichier.close()
                     
                 elif data =="python --version":
-                    reply = str(f"La version de python qu'on utilise actullement est la {python_version()}")
+                    reply = str(f"La version de python qu'on utilise actuellement est la {python_version()}")
                     conn.send(reply.encode())
                     print("Message envoyé")
                     fichier = open('historique.txt', 'a')
                     fichier.write(data + "\n")
                     print("fait")
 
-                elif data =="disc":
-                    print("Le client s'est deconnecté")
-                    print("Message envoyé")
-                    data = ""
-                    fichier = open('historique.txt', 'a')
-                    fichier.write(data + "\n")
-                    print("fait")
-                    fichier.close()
 
-                elif data == "help" or data == "HELP":
+                elif data == "help":
                     fichier = open('help.txt', 'r')
                     reply = str(fichier.read())
                     conn.send(reply.encode())
@@ -192,7 +185,7 @@ def serveur():
                         print("fait")
                         fichier.close()
                 
-                elif data == "commandeavant" or data == "COMMANDEAVANT":
+                elif data == "commandeavant":
                     fichier = open('historique.txt', 'r')
                     with open('historique.txt', 'r') as f:
                         last_line = f.readlines()[-1]
@@ -200,7 +193,7 @@ def serveur():
                     fichier.close()
                     print(f"Message {last_line} envoyé")
 
-                elif data == "reset" or data == "RESET":
+                elif data == "reset" or data == "restart" or data == "reboot":
                     print("Reset du serveur")
                     print("Message envoyé")
                     data = "reset"
@@ -208,7 +201,7 @@ def serveur():
                     fichier.write(data + "\n")
                     print("fait")
                 
-                elif data == "arret" or data == "ARRET":
+                elif data == "arret" or data == "kill" or data == "exit" or data == "quit":
                     print("Le client et le serveur sont deconnectés")
                     print("Message envoyé")
                     data = "arret"
@@ -217,15 +210,15 @@ def serveur():
                     print("fait")
 
                 
-                elif data == "disconnect" or data == "DISCONNECT":
+                elif data=="disc" or data == "disconnect" or data == "deco" or data == "deconnect" or data == "deconnexion":
                     print("Le client s'est deconnecté")
                     print("Message envoyé")
-                    data = ""
+                    data = "disconnect"
                     fichier = open('historique.txt', 'a')
                     fichier.write(data + "\n")
                     print("fait")
-                    break
-                
+                    print("Recherche du client")
+
                 else :
                     conf = os.system(data)
                     print("conf", conf)
