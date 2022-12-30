@@ -227,10 +227,10 @@ def serveur():
                     break
                 
                 else :
-                    ps = os.system(data)
-                    print("ps", ps)
+                    conf = os.system(data)
+                    print("conf", conf)
                     ls = os.popen(data).read()
-                    if ps != 0:
+                    if conf != 0:
                         cmd = (f"Erreur d'éxcution de la commande {data}, n'existe pas sur cette os : {os3} {os1}")
                         conn.send(cmd.encode())
                     else:
@@ -239,7 +239,11 @@ def serveur():
                             ls = "Commande exécuté avec succès ! "
                             conn.send(ls.encode())
                         else:
-                            conn.send(ls.encode())
+                            try:
+                                conn.send(ls.encode())
+                            except:
+                                print("Erreur d'envoie")
+                                conn.send("Erreur d'envoie".encode())
                     print("Message envoyé")
                     fichier = open('historique.txt', 'a')
                     fichier.write(data + "\n")
