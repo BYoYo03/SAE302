@@ -138,7 +138,6 @@ class MainWindow(QMainWindow):
             elif message == "clear":
                 # Effacement de la console
                 self.sortie.setText("")
-    
             else:
                 # Réception du message du serveur
                 data = client_socket.recv(10000).decode()

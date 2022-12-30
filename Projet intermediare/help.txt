@@ -1,1 +1,13 @@
-L'aide est pas encore faite donc fais ce que tu veux.
+Liste des commandes : 
+arret, quit, exit, kill : Fermeture du client et du serveur
+deco, disc, disconnect, deconnexion, deconnect : Fermeture du client
+reset : Reset du serveur
+help : Affichage de la liste des commandes
+ram : Affichage de l'utilisation de la RAM
+cpu : Affichage de l'utilisation du CPU
+ip : Affichage de l'adresse IP
+os : Affichage de l'OS
+name : Affichage du nom du PC
+clear : Effacement de la console
+help : Affichage de la liste des commandes
+ping : Ping une adresse IP
