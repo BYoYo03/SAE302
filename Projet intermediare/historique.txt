@@ -280,3 +280,8 @@ ip
 os
 name
 ip
+disconnect
+lmqdlng
+kige
+kige
+arret

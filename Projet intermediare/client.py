@@ -112,6 +112,7 @@ class MainWindow(QMainWindow):
         message = self.__text.text()
         # Envoi du message au serveur
         if message == " " or message =="" or message.startswith(" "):
+            self.__text.setText("")
             # N'affiche rien si le message est vide
             self.__text.setFocus()
         else:
