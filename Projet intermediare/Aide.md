@@ -30,13 +30,12 @@ client.py : fichier client,utilisateur
 
 Les paquets/librairies à installer sur python :
 
-PyQt6
-sys
-socket
-psutil
-platform
-os
-platform
+PyQt6,
+sys,
+socket,
+psutil,
+platform,
+os.
 
 Dans le fichier access.txt vous pouvez définir l'adresse ip des deux serveurs ainsi que leur port afin de vous connecter.
 Il faut garder ce schéma d'écriture.
@@ -64,3 +63,5 @@ Ensuite celui-ci:
 client.py
 
 Une premiere interface pour la sélection du serveur s'affichera et par la suite vous aurez accès apres ce choix à l'interface pour l'échange des commandes entre le client et le serveur.
+
+### **Ne pas tenir compte du dossier projet facile.**
