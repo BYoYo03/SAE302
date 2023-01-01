@@ -131,7 +131,9 @@ def serveur():
                     fichier.write(data + "\n")
                     print("fait")
                     fichier.close()
-                
+
+                    
+                # Si le message est clear on efface l'historique des commandes dans l'interface
                 elif data =="clear":
                     os.system("clear")
                     print(f"Message {data} reçu")
