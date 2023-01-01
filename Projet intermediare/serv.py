@@ -148,7 +148,6 @@ def serveur():
                     fichier.write(data + "\n")
                     print("fait")
 
-
                 elif data == "help":
                     fichier = open('help.txt', 'r')
                     reply = str(fichier.read())
@@ -160,16 +159,22 @@ def serveur():
                     print("fait")
                     fichier.close()
 
-
+                # Si le message commence par ping on envoie le ping de l'ip
                 elif data.startswith("ping "):
+                    # On envoie le ping de l'ip
                     try: 
+                        # On récupère l'ip
                         ip = data.split()[1]
                         print(ip)
+                        # On envoie le ping
                         result = os.system("ping -c 1 " + ip)
+                        # Si le ping est ok on envoie un message
                         if result == 0:
+                            # On envoie le message
                             ping = str(f"PING {ip} OK ")
                             conn.send(ping.encode())
                         else:
+                            # On envoie le message
                             ping = str(f"PING {ip} FAIL ")
                             conn.send(ping.encode())
                         print("Message envoyé")
@@ -178,6 +183,7 @@ def serveur():
                         print("fait")
                         fichier.close()
                     except:
+                        # Si il y a une erreur on envoie un message
                         print("Erreur de saisie")
                         conn.send("Erreur de saisie".encode())
                         fichier = open('historique.txt', 'w')
@@ -185,6 +191,7 @@ def serveur():
                         print("fait")
                         fichier.close()
                 
+                # Si le message est commandeavant on envoie l'historique des commandes
                 elif data == "commandeavant":
                     fichier = open('historique.txt', 'r')
                     with open('historique.txt', 'r') as f:
@@ -220,21 +227,29 @@ def serveur():
                     print("Recherche du client")
 
                 else :
+                    # On execute la commande
                     conf = os.system(data)
                     print("conf", conf)
+                    # On récupère le résultat de la commande
                     ls = os.popen(data).read()
+                    # on verifie si la commande marche
                     if conf != 0:
+                        # On envoie un message d'erreur
                         cmd = (f"Erreur d'éxcution de la commande {data}, n'existe pas sur cette os : {os3} {os1}")
                         conn.send(cmd.encode())
                     else:
+                        # On envoie le résultat de la commande
                         print("ls", ls)
                         if ls == "":
+                            # On envoie un message de succès
                             ls = "Commande exécuté avec succès ! "
                             conn.send(ls.encode())
                         else:
+                            # On envoie le résultat de la commande
                             try:
                                 conn.send(ls.encode())
                             except:
+                                # On envoie un message d'erreur si la commande d'envoie echoue
                                 print("Erreur d'envoie")
                                 conn.send("Erreur d'envoie".encode())
                     print("Message envoyé")
@@ -242,7 +257,7 @@ def serveur():
                     fichier.write(data + "\n")
                     print("fait")
                     fichier.close()
-        
+        # On ferme la connexion
         print("Connexion fermé")
         server_socket.close()
         print("Socket fermé")
