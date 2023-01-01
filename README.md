@@ -57,3 +57,5 @@ Ensuite celui-ci:
 client.py
 
 Une premiere interface pour la sélection du serveur s'affichera et par la suite vous aurez accès apres ce choix à l'interface pour l'échange des commandes entre le client et le serveur.
+
+### **Ne pas tenir compte du dossier projet facile.**
