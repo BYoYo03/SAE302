@@ -9,27 +9,33 @@ A l’image du protocole SNMP, nous souhaitons réaliser un système client-serv
 ### Contenue du dossier :
 
 `Fichier texte :`             
+
 historique.txt : ce fichier sert d'historique pour les commandes
+
 access.txt : ce fichier nous permet de définir le port et l'adresse ip des deux serveurs
+
 help.txt : ce fichier est une aide des commandes pouvant être effectués.
 
 `Fichier de prog : `      
+
 serv.py : serveur en python numéro 1
+
 serv2.py : serveur en python numéro 2
+
 style.css : fichier css permettant de réaliser le style de l'interface graphique
+
 client.py : fichier client,utilisateur
 
 ### **Preparation**
 
 Les paquets/librairies à installer sur python :
 
-PyQt6
-sys
-socket
-psutil
-platform
-os
-platform
+PyQt6,
+sys,
+socket,
+psutil,
+platform,
+os.
 
 Dans le fichier access.txt vous pouvez définir l'adresse ip des deux serveurs ainsi que leur port afin de vous connecter.
 Il faut garder ce schéma d'écriture.
