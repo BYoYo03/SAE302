@@ -6,7 +6,10 @@ Mon projet correspond aux demandes du projet intermédiaire en entier avec des p
 
 A l’image du protocole SNMP, nous souhaitons réaliser un système client-serveur permettant d’envoyer des commandes systèmes permettant de superviser et de diagnostiquer des machines ou serveurs à distance.
 
-### Contenue du dossier :
+### **Ne pas tenir compte du dossier projet protype.**
+
+### Contenue du dossier Projet Intermediaire :
+
 
 `Fichier texte :`             
 
@@ -15,6 +18,8 @@ historique.txt : ce fichier sert d'historique pour les commandes
 access.txt : ce fichier nous permet de définir le port et l'adresse ip des deux serveurs
 
 help.txt : ce fichier est une aide des commandes pouvant être effectués.
+
+doc-utilisateur&programmeur.md : ce fichier est le fichier de documentation du projet.
 
 `Fichier de prog : `      
 
@@ -64,8 +69,6 @@ Ensuite celui-ci:
 client.py
 
 Une premiere interface pour la sélection du serveur s'affichera et par la suite vous aurez accès apres ce choix à l'interface pour l'échange des commandes entre le client et le serveur.
-
-### **Ne pas tenir compte du dossier projet protype.**
 
 
 ### **Doc Utilisateur**
