@@ -26,7 +26,8 @@ style.css : fichier css permettant de réaliser le style de l'interface graphiqu
 
 client.py : fichier client,utilisateur
 
-### **Preparation**
+### **Preparation:** 
+### **Doc Programmeur** 
 
 Les paquets/librairies à installer sur python :
 
@@ -65,3 +66,16 @@ client.py
 Une premiere interface pour la sélection du serveur s'affichera et par la suite vous aurez accès apres ce choix à l'interface pour l'échange des commandes entre le client et le serveur.
 
 ### **Ne pas tenir compte du dossier projet protype.**
+
+
+### **Doc Utilisateur**
+
+Pour lancer le programme il faut lancer le fichier client.py. Une premiere interface est lancé afin de choisir le seveur souhaité pour l'échange des commandes.
+
+Une fois le serveur choisi vous pouvez commencer à envoyer des commandes au serveur.
+
+Pour cela il faut écrire la commande dans la zone de texte puis appuyer sur le bouton "envoyer" ou tout simplement sur la touche "entrée" de votre clavier.
+
+Pour voir l'aide des commandes il faut appuyer sur le bouton "help".
+
+
