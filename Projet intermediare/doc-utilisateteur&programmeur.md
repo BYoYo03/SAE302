@@ -45,8 +45,8 @@ Exemple :
 
 127.0.0.1 1222 localhost 1227
 
-    ^       ^      ^      ^  
-    ip    port     ip    port
+    ^     ^     ^     ^  
+    ip   port   ip  port
 
 Il faut que tout sois sur la premiere ligne avec des epsaces entre l'adresse ip et le port.
 
