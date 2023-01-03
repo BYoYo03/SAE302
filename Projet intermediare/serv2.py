@@ -18,7 +18,7 @@ def serveur():
     ram1 = psutil.virtual_memory()[3] / 1000000000
     ram2 = psutil.virtual_memory()[1] / 1000000000
 
-    # On crée une boucle tant que le mot "arret" qui permet de garder le serveur en ligne
+    # On crée une boucle tant que le mot "arret", qui permet de garder le serveur en ligne
     data = ""  
     while data != "arret":
         data = ""
@@ -61,7 +61,7 @@ def serveur():
                 # Si le message est os ou OS on envoie le nom de l'os
                 if data =="os":
                     # On envoie le nom de l'os
-                    reply = str(f"Sserveur 2 : {os3} {os1}")
+                    reply = str(f"Serveur 2 : {os3} {os1}")
                     conn.send(reply.encode())
                     # On affiche sur la console que le message a été envoyé
                     print("Message envoyé")

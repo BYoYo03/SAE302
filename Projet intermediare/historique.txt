@@ -1,29 +1,4 @@
-cleazr
+ping 8.8.8.8
+f
 clear
 arret
-ip
-cpu
-kze
-clear
-ff
-fzd
-fd
-disconnect
-os
-name
-disconnect
-d 
-cec
-cdce 
-dea
-ls
-mkdir toto
-qmdc
-zklnf
-mkdir toto
-mkdir tt
-rmdir toto
-rmdir tt
-touch tet
-rmdir tet
-rm tet
