@@ -110,6 +110,7 @@ class MainWindow(QMainWindow):
     def __actionentrer(self):
         # Récupération du message
         message = self.__text.text()
+        message = message.lower()
         # Envoi du message au serveur
         if message == " " or message =="" or message.startswith(" "):
             self.__text.setText("")
