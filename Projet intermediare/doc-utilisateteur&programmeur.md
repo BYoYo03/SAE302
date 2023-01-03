@@ -78,4 +78,5 @@ Pour cela il faut écrire la commande dans la zone de texte puis appuyer sur le 
 
 Pour voir l'aide des commandes il faut appuyer sur le bouton "help".
 
+Vous pouvez également utiliser les commandes rapides en appuyant sur les boutons correspondant à la commande. Par exemple pour la commande "ram" il faut appuyer sur le bouton "ram" de l'interface.
 
